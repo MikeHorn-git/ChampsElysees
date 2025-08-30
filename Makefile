@@ -50,4 +50,4 @@ all: red miscs blue
 clean:
 	vagrant destroy -f
 
-.PHONY: help setup deploy red blue scans all report clean test
+.PHONY: help setup deploy red blue scans all clean test
