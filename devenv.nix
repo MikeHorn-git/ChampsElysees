@@ -4,7 +4,6 @@
   # https://devenv.sh/packages/
   packages = with pkgs; [
     git
-    ansible-lint
     checkmake
     mdformat
     nixfmt-classic
@@ -19,15 +18,15 @@
   tasks = {
     "lint:run".exec = ''
       ansible-lint -c .ansible-lint
-       git ls-files --cached --others --exclude-standard 'Makefile' | xargs checkmake
-       mdformat README.md
-       git ls-files --cached --others --exclude-standard '*.nix' | xargs nixfmt
-       rubocop -A Vagrantfile'';
+      checkmake Makefile
+      mdformat README.md
+      nixfmt devenv.nix
+      rubocop -A Vagrantfile'';
     "reqs:run".exec = ''
       vagrant plugin install vagrant-vbguest
-       vagrant plugin install winrm
-       vagrant plugin install winrm-elevated
-       vagrant plugin install winrm-fs'';
+      vagrant plugin install winrm
+      vagrant plugin install winrm-elevated
+      vagrant plugin install winrm-fs'';
   };
 
   # https://devenv.sh/git-hooks/
