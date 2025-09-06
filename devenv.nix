@@ -2,14 +2,7 @@
 
 {
   # https://devenv.sh/packages/
-  packages = with pkgs; [
-    git
-    checkmake
-    mdformat
-    nixfmt-classic
-    rubocop
-    vagrant
-  ];
+  packages = with pkgs; [ git checkmake mdformat nixfmt-classic rubocop ];
 
   # https://devenv.sh/languages/
   languages.ansible.enable = true;
@@ -22,12 +15,11 @@
       mdformat README.md
       nixfmt devenv.nix
       rubocop -A Vagrantfile'';
-    "reqs:run".exec = ''
-      vagrant plugin install vagrant-vbguest
-      vagrant plugin install winrm
-      vagrant plugin install winrm-elevated
-      vagrant plugin install winrm-fs'';
   };
+
+  enterTest = ''
+    make help
+  '';
 
   # https://devenv.sh/git-hooks/
   git-hooks.hooks = {
