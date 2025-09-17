@@ -2,7 +2,14 @@
 
 {
   # https://devenv.sh/packages/
-  packages = with pkgs; [ git checkmake mdformat nixfmt-classic rubocop ];
+  packages = with pkgs; [
+    git
+    checkmake
+    mdformat
+    nixfmt-classic
+    powershell
+    rubocop
+  ];
 
   # https://devenv.sh/languages/
   languages.ansible.enable = true;
@@ -14,6 +21,8 @@
       checkmake Makefile
       mdformat README.md
       nixfmt devenv.nix
+      pwsh -Command "Install-Module -Name PSScriptAnalyzer -Force"
+      pwsh -Command "Invoke-ScriptAnalyzer -Path scripts/ -Recurse"
       rubocop -A Vagrantfile'';
   };
 
